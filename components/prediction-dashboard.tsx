@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { TrendingUp, Activity, BarChart3, Brain } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Progress } from '@/components/ui/progress';
 
 interface PredictionDashboardProps {
   alerts: any[];
@@ -115,10 +114,14 @@ export function PredictionDashboard({ alerts, loading }: PredictionDashboardProp
                     <span className="text-sm font-medium">{type}</span>
                     <Badge variant="secondary">{count} alert(s)</Badge>
                   </div>
-                  <Progress
-                    value={(count / alerts.length) * 100}
-                    className="h-2"
-                  />
+                  <div className="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden">
+                    <div
+                      className="bg-blue-500 h-2.5 rounded-full transition-all"
+                      style={{
+                        width: `${(count / alerts.length) * 100}%`,
+                      }}
+                    ></div>
+                  </div>
                 </div>
               ))}
               {Object.keys(disasterTypes).length === 0 && (

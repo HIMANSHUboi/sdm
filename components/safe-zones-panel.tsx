@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Shield, Phone, Users, MapPin, CheckCircle2 } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Progress } from '@/components/ui/progress';
 
 interface SafeZonesPanelProps {
   safeZones: any[];
@@ -111,10 +110,16 @@ export function SafeZonesPanel({ safeZones, loading }: SafeZonesPanelProps) {
                         {zone.current_occupancy} / {zone.capacity}
                       </span>
                     </div>
-                    <Progress
-                      value={occupancyPercentage}
-                      className="h-2"
-                    />
+                    <div className="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden">
+                      <div
+                        className={`h-2.5 rounded-full transition-all ${
+                          occupancyPercentage >= 90 ? 'bg-red-500' : occupancyPercentage >= 70 ? 'bg-orange-500' : 'bg-green-500'
+                        }`}
+                        style={{
+                          width: `${occupancyPercentage}%`,
+                        }}
+                      ></div>
+                    </div>
 
                     {zone.facilities && zone.facilities.length > 0 && (
                       <div className="pt-2 border-t border-slate-200">
